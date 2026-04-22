@@ -1,0 +1,1275 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8" />
+<title>GS Door — ბინის და სახანძრო კარი</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0b0c;
+    --bg-2: #121214;
+    --surface: #18181b;
+    --line: #2a2a2e;
+    --line-soft: #1d1d20;
+    --text: #eeeeee;
+    --muted: #8a8a90;
+    --dim: #5a5a60;
+    --red: oklch(58% 0.21 25);
+    --red-soft: oklch(52% 0.18 25);
+    --red-deep: oklch(38% 0.16 25);
+    --red-glow: oklch(68% 0.22 25 / 0.35);
+    --font-sans: 'Noto Sans Georgian', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-display: 'Bebas Neue', 'Noto Sans Georgian', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+  body { overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  /* === Layout === */
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 40px; }
+  @media (max-width: 720px) { .wrap { padding: 0 20px; } }
+
+  /* === Nav === */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    backdrop-filter: blur(12px);
+    background: rgba(11,11,12,0.72);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px; max-width: 1440px; margin: 0 auto; padding: 0 40px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    height: 36px;
+  }
+  .logo img { height: 32px; width: auto; display: block; }
+  .logo-mark {
+    width: 28px; height: 28px; position: relative;
+    background: var(--red);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 50%, 8% 50%, 8% 14%, 92% 14%, 92% 86%, 8% 86%, 8% 50%, 0 50%);
+  }
+  .nav-links { display: flex; gap: 32px; font-size: 13px; color: var(--muted); }
+  .nav-links a { transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-actions { display: flex; align-items: center; gap: 16px; }
+  .lang-switch {
+    display: flex; font-size: 11px; font-family: var(--font-mono);
+    border: 1px solid var(--line); border-radius: 2px; overflow: hidden;
+  }
+  .lang-switch button {
+    padding: 6px 10px; color: var(--dim); letter-spacing: 0.08em;
+  }
+  .lang-switch button.active { background: var(--red); color: #fff; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; font-size: 13px; letter-spacing: 0.02em;
+    border: 1px solid var(--line); border-radius: 2px;
+    transition: all .2s;
+  }
+  .btn:hover { background: var(--surface); border-color: #3a3a3e; }
+  .btn-primary {
+    background: var(--red); border-color: var(--red); color: #fff; font-weight: 500;
+  }
+  .btn-primary:hover { background: var(--red-soft); border-color: var(--red-soft); }
+  @media (max-width: 880px) { .nav-links { display: none; } .nav-inner { padding: 0 20px; } }
+
+  /* === Hero === */
+  .hero {
+    position: relative; padding: 140px 0 80px;
+    border-bottom: 1px solid var(--line-soft);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.25fr 1fr; gap: 60px; align-items: end;
+  }
+  @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .eyebrow::before {
+    content: ''; width: 6px; height: 6px; background: var(--red); border-radius: 50%;
+    box-shadow: 0 0 12px var(--red-glow);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .hero h1 {
+    font-family: var(--font-sans);
+    font-size: clamp(40px, 7vw, 96px);
+    font-weight: 800; letter-spacing: -0.03em; line-height: 0.96;
+    margin-bottom: 28px;
+  }
+  .hero h1 .accent {
+    color: var(--red); font-style: italic; font-weight: 500;
+  }
+  .hero-sub {
+    font-size: 17px; color: var(--muted); line-height: 1.6; max-width: 520px;
+    margin-bottom: 36px;
+  }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .hero-specs {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    font-family: var(--font-mono);
+  }
+  .spec {
+    background: var(--bg); padding: 20px 22px;
+  }
+  .spec-k { font-size: 10px; color: var(--dim); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+  .spec-v { font-size: 24px; color: var(--text); font-weight: 500; }
+  .spec-v .unit { font-size: 12px; color: var(--muted); margin-left: 4px; }
+
+  /* Hero visual strip */
+  .hero-strip {
+    margin-top: 80px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line);
+  }
+  .hero-strip-item {
+    background: var(--bg); padding: 24px 22px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .hero-strip-num {
+    font-family: var(--font-mono); font-size: 11px; color: var(--red);
+  }
+  .hero-strip-label { font-size: 14px; color: var(--muted); }
+  @media (max-width: 720px) {
+    .hero-strip { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* === Section === */
+  .section { padding: 120px 0; border-bottom: 1px solid var(--line-soft); }
+  .section-head {
+    display: grid; grid-template-columns: 220px 1fr; gap: 60px;
+    margin-bottom: 72px;
+  }
+  @media (max-width: 820px) { .section-head { grid-template-columns: 1fr; gap: 20px; margin-bottom: 48px; } }
+  .section-num {
+    font-family: var(--font-mono); font-size: 11px; color: var(--red);
+    letter-spacing: 0.2em; padding-top: 16px;
+    border-top: 1px solid var(--red); display: inline-block; align-self: start;
+  }
+  .section-title {
+    font-size: clamp(32px, 4.5vw, 56px); font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.05;
+  }
+  .section-title .thin { font-weight: 300; color: var(--muted); }
+
+  /* === About === */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  }
+  @media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-lead {
+    font-size: 22px; line-height: 1.5; font-weight: 300;
+  }
+  .about-lead strong { color: var(--text); font-weight: 600; }
+  .about-body p {
+    font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 16px;
+  }
+
+  .stats {
+    margin-top: 80px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line);
+  }
+  @media (max-width: 720px) { .stats { grid-template-columns: 1fr 1fr; } }
+  .stat { background: var(--bg); padding: 32px 28px; }
+  .stat-num {
+    font-family: var(--font-display); font-size: 72px; line-height: 1;
+    color: var(--text); margin-bottom: 8px;
+  }
+  .stat-num .sym { color: var(--red); }
+  .stat-label { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* === Products === */
+  .products { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .product {
+    background: var(--bg); padding: 48px 40px;
+    display: grid; grid-template-columns: 80px 1fr 1.2fr auto; gap: 40px;
+    align-items: center;
+    transition: background .25s;
+    cursor: pointer;
+  }
+  .product:hover { background: var(--bg-2); }
+  .product:hover .product-arrow { transform: translateX(6px); color: var(--red); }
+  .product-idx { font-family: var(--font-mono); font-size: 12px; color: var(--red); letter-spacing: 0.1em; }
+  .product-title { font-size: 26px; font-weight: 600; letter-spacing: -0.01em; }
+  .product-title small { display: block; font-family: var(--font-mono); font-size: 11px; color: var(--dim); font-weight: 400; margin-top: 6px; letter-spacing: 0.08em; }
+  .product-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .product-arrow { font-size: 22px; color: var(--muted); transition: all .2s; }
+  @media (max-width: 820px) {
+    .product { grid-template-columns: 1fr; gap: 16px; padding: 32px 24px; }
+    .product-arrow { justify-self: start; }
+  }
+
+  /* === Configurator === */
+  .config {
+    margin-top: 72px;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    display: grid; grid-template-columns: 1.3fr 1fr;
+  }
+  @media (max-width: 880px) { .config { grid-template-columns: 1fr; } }
+  .config-preview {
+    padding: 60px; background: linear-gradient(180deg, #0d0d0f, #17171a);
+    display: flex; align-items: center; justify-content: center; position: relative;
+    min-height: 440px;
+    border-right: 1px solid var(--line);
+  }
+  @media (max-width: 880px) { .config-preview { border-right: none; border-bottom: 1px solid var(--line); } }
+  .door-svg { width: 100%; max-width: 220px; }
+  .config-form { padding: 40px; }
+  .config-head {
+    font-family: var(--font-mono); font-size: 11px; color: var(--dim);
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .config-title { font-size: 22px; font-weight: 600; margin-bottom: 32px; }
+  .field { margin-bottom: 24px; }
+  .field-label {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .field-label .val { color: var(--red); }
+  .opts { display: flex; gap: 6px; flex-wrap: wrap; }
+  .opt {
+    padding: 10px 16px; font-size: 13px; font-family: var(--font-mono);
+    border: 1px solid var(--line); color: var(--muted);
+    background: var(--bg); transition: all .15s;
+  }
+  .opt:hover { border-color: var(--line); color: var(--text); }
+  .opt.active { background: var(--red); border-color: var(--red); color: #fff; }
+  .price-row {
+    margin-top: 32px; padding-top: 24px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .price-label { font-family: var(--font-mono); font-size: 11px; color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase; }
+  .price-val { font-family: var(--font-display); font-size: 42px; color: var(--text); letter-spacing: 0.02em; }
+  .price-val .cur { color: var(--red); font-size: 26px; margin-right: 4px; }
+
+  /* === Certifications === */
+  .certs {
+    padding: 60px 0;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .certs-inner {
+    display: grid; grid-template-columns: 220px 1fr; gap: 60px; align-items: center;
+  }
+  @media (max-width: 820px) { .certs-inner { grid-template-columns: 1fr; gap: 32px; } }
+  .certs-label {
+    font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    letter-spacing: 0.15em; text-transform: uppercase; line-height: 1.6;
+  }
+  .certs-row {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 40px; align-items: center;
+  }
+  @media (max-width: 720px) { .certs-row { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+  .cert-item {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .cert-code {
+    font-family: var(--font-mono); font-size: 16px; color: var(--text); font-weight: 500;
+  }
+  .cert-name {
+    font-size: 11px; color: var(--muted); letter-spacing: 0.05em;
+  }
+
+  /* === Cases === */
+  .cases {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line);
+  }
+  @media (max-width: 820px) { .cases { grid-template-columns: 1fr; } }
+  .case {
+    background: var(--bg); padding: 32px;
+    cursor: pointer; transition: background .2s;
+  }
+  .case:hover { background: var(--bg-2); }
+  .case-img {
+    height: 280px; margin-bottom: 24px; position: relative; overflow: hidden;
+    background: repeating-linear-gradient(45deg, #1a1a1d 0 1px, transparent 1px 10px), #121214;
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .case-img-label {
+    font-family: var(--font-mono); font-size: 11px; color: var(--dim);
+    letter-spacing: 0.1em; padding: 6px 12px;
+    background: var(--bg); border: 1px solid var(--line);
+  }
+  .case-meta {
+    display: flex; gap: 16px; font-family: var(--font-mono); font-size: 11px;
+    color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .case-meta .sep { color: var(--dim); }
+  .case-title { font-size: 22px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .case-client { font-size: 13px; color: var(--muted); }
+
+  /* === Process === */
+  .process {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line);
+  }
+  @media (max-width: 820px) { .process { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .process { grid-template-columns: 1fr; } }
+  .step { background: var(--bg); padding: 36px 28px; min-height: 220px; position: relative; }
+  .step-num {
+    font-family: var(--font-display); font-size: 56px; line-height: 1;
+    color: var(--red); margin-bottom: 16px;
+  }
+  .step-title { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+  .step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* === Contact === */
+  .contact {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  }
+  @media (max-width: 820px) { .contact { grid-template-columns: 1fr; gap: 40px; } }
+  .contact-h {
+    font-size: clamp(36px, 5vw, 64px); font-weight: 700;
+    line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 24px;
+  }
+  .contact-h .red { color: var(--red); }
+  .contact-sub { font-size: 16px; color: var(--muted); line-height: 1.6; margin-bottom: 40px; max-width: 440px; }
+  .contact-info { display: grid; gap: 20px; }
+  .ci-item {
+    padding: 16px 0; border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: 100px 1fr; gap: 20px; align-items: baseline;
+  }
+  .ci-k { font-family: var(--font-mono); font-size: 11px; color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase; }
+  .ci-v { font-size: 15px; color: var(--text); }
+
+  .form-box {
+    border: 1px solid var(--line); padding: 40px; background: var(--bg-2);
+  }
+  .form-field { margin-bottom: 20px; }
+  .form-field label {
+    display: block; font-family: var(--font-mono); font-size: 11px;
+    color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .form-field input, .form-field textarea, .form-field select {
+    width: 100%; background: var(--bg); border: 1px solid var(--line);
+    padding: 12px 14px; color: var(--text); font-family: inherit; font-size: 14px;
+    border-radius: 2px; transition: border-color .2s;
+  }
+  .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+    outline: none; border-color: var(--red);
+  }
+  .form-field textarea { min-height: 100px; resize: vertical; }
+  .form-submit {
+    width: 100%; padding: 16px; background: var(--red); color: #fff;
+    font-size: 14px; letter-spacing: 0.05em; font-weight: 500;
+    transition: background .2s; border-radius: 2px;
+  }
+  .form-submit:hover { background: var(--red-soft); }
+
+  /* === Footer === */
+  .footer { padding: 60px 0 40px; border-top: 1px solid var(--line); }
+  .footer-inner {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+    margin-bottom: 60px;
+  }
+  @media (max-width: 820px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+  .footer-col h4 {
+    font-family: var(--font-mono); font-size: 11px; color: var(--dim);
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .footer-col a { display: block; font-size: 13px; color: var(--muted); margin-bottom: 8px; transition: color .2s; }
+  .footer-col a:hover { color: var(--text); }
+  .footer-bot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 24px; border-top: 1px solid var(--line-soft);
+    font-family: var(--font-mono); font-size: 11px; color: var(--dim);
+    letter-spacing: 0.08em;
+  }
+
+  /* === Big Marquee === */
+  .marquee {
+    padding: 40px 0; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft);
+    overflow: hidden; white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex; gap: 60px;
+    animation: scroll 30s linear infinite;
+    font-family: var(--font-display); font-size: 56px;
+    letter-spacing: 0.05em; color: var(--text);
+  }
+  .marquee-track span { display: inline-flex; align-items: center; gap: 60px; }
+  .marquee-track .dot { width: 12px; height: 12px; background: var(--red); border-radius: 50%; display: inline-block; }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* === Tweaks Panel === */
+  .tweaks {
+    position: fixed; bottom: 20px; right: 20px; z-index: 200;
+    background: var(--bg-2); border: 1px solid var(--line);
+    padding: 20px; width: 280px; border-radius: 4px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: none;
+  }
+  .tweaks.active { display: block; }
+  .tweaks-head {
+    font-family: var(--font-mono); font-size: 11px; color: var(--dim);
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 14px;
+    display: flex; justify-content: space-between;
+  }
+  .tweak-group { margin-bottom: 16px; }
+  .tweak-group > label {
+    display: block; font-size: 11px; color: var(--muted);
+    margin-bottom: 8px; font-family: var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .tweak-opts { display: flex; gap: 4px; }
+  .tweak-opts button {
+    flex: 1; padding: 8px; font-size: 11px; font-family: var(--font-mono);
+    border: 1px solid var(--line); color: var(--muted); background: var(--bg);
+    letter-spacing: 0.05em;
+  }
+  .tweak-opts button.active { background: var(--red); border-color: var(--red); color: #fff; }
+  .swatch-row { display: flex; gap: 6px; }
+  .swatch {
+    width: 32px; height: 32px; border: 1px solid var(--line); cursor: pointer; border-radius: 2px;
+  }
+  .swatch.active { outline: 2px solid var(--red); outline-offset: 2px; }
+
+  /* Variations */
+  body[data-variant="editorial"] {
+    --red: oklch(55% 0.16 30);
+    --font-display: 'Noto Sans Georgian', serif;
+  }
+  body[data-variant="editorial"] .section-title,
+  body[data-variant="editorial"] .hero h1,
+  body[data-variant="editorial"] .contact-h {
+    font-weight: 300; letter-spacing: -0.04em;
+  }
+  body[data-variant="editorial"] .hero h1 .accent { font-style: italic; font-weight: 400; }
+  body[data-variant="editorial"] .stat-num,
+  body[data-variant="editorial"] .price-val {
+    font-family: 'Noto Sans Georgian', serif; font-weight: 300;
+  }
+
+  body[data-variant="brutal"] {
+    --bg: #0a0a0a;
+    --bg-2: #111;
+    --line: #333;
+    --red: oklch(62% 0.24 28);
+  }
+  body[data-variant="brutal"] .section-title,
+  body[data-variant="brutal"] .hero h1,
+  body[data-variant="brutal"] .contact-h {
+    text-transform: uppercase; letter-spacing: -0.01em; font-weight: 900;
+  }
+  body[data-variant="brutal"] .btn,
+  body[data-variant="brutal"] .opt,
+  body[data-variant="brutal"] .form-field input,
+  body[data-variant="brutal"] .form-field select,
+  body[data-variant="brutal"] .form-field textarea,
+  body[data-variant="brutal"] .form-submit { border-radius: 0; }
+
+  /* Reveal animation */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+</style>
+</head>
+<body data-variant="industrial">
+
+<!-- ============ NAV ============ -->
+<nav class="nav" data-screen-label="Navigation">
+  <div class="nav-inner">
+    <div class="logo">
+      <img src="assets/gs-door-horizontal-nav.png" alt="GS Door" />
+    </div>
+    <div class="nav-links">
+      <a href="#about" data-i18n="nav.about">შესახებ</a>
+      <a href="#products" data-i18n="nav.products">პროდუქტი</a>
+      <a href="#cases" data-i18n="nav.cases">ნამუშევრები</a>
+      <a href="#process" data-i18n="nav.process">პროცესი</a>
+      <a href="#contact" data-i18n="nav.contact">კონტაქტი</a>
+    </div>
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <button data-lang="ka" class="active">KA</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <a href="#contact" class="btn btn-primary" data-i18n="nav.cta">შეკვეთა</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">
+          <span data-i18n="hero.eyebrow">ბინის და სახანძრო კარის წარმოება · 2008-დან</span>
+        </div>
+        <h1>
+          <span data-i18n="hero.h1a">კარი, რომელიც</span><br/>
+          <span class="accent" data-i18n="hero.h1b">იცავს.</span>
+          <span data-i18n="hero.h1c"></span>
+          <span data-i18n="hero.h1d"></span>
+        </h1>
+        <p class="hero-sub" data-i18n="hero.sub">
+          ვაწარმოებთ ბინის შესასვლელ და სახანძრო კარებს საქართველოში —
+          სერტიფიცირებული EN 1634-1 სტანდარტით, 60 და 120 წუთიანი ცეცხლმედეგობით.
+          მზა პროდუქცია 10 დღეში, ინდივიდუალური შეკვეთა — 21 დღეში.
+        </p>
+        <div class="hero-ctas">
+          <a href="#products" class="btn btn-primary" data-i18n="hero.cta1">პროდუქციის ნახვა →</a>
+          <a href="#contact" class="btn" data-i18n="hero.cta2">უფასო გაზომვა</a>
+        </div>
+      </div>
+
+      <div class="hero-specs">
+        <div class="spec">
+          <div class="spec-k" data-i18n="spec.fire">ცეცხლმედეგობა</div>
+          <div class="spec-v">EI 120<span class="unit">წუთი</span></div>
+        </div>
+        <div class="spec">
+          <div class="spec-k" data-i18n="spec.thick">ფურცლის სისქე</div>
+          <div class="spec-v">1.5<span class="unit">მმ</span></div>
+        </div>
+        <div class="spec">
+          <div class="spec-k" data-i18n="spec.locks">საკეტების რაოდ.</div>
+          <div class="spec-v">3<span class="unit">× სისტემა</span></div>
+        </div>
+        <div class="spec">
+          <div class="spec-k" data-i18n="spec.warranty">გარანტია</div>
+          <div class="spec-v">10<span class="unit">წელი</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-strip">
+      <div class="hero-strip-item">
+        <div class="hero-strip-num">01</div>
+        <div class="hero-strip-label" data-i18n="strip.1">ქართული წარმოება</div>
+      </div>
+      <div class="hero-strip-item">
+        <div class="hero-strip-num">02</div>
+        <div class="hero-strip-label" data-i18n="strip.2">EN & ISO სერტიფიკატი</div>
+      </div>
+      <div class="hero-strip-item">
+        <div class="hero-strip-num">03</div>
+        <div class="hero-strip-label" data-i18n="strip.3">მონტაჟი 24 საათში</div>
+      </div>
+      <div class="hero-strip-item">
+        <div class="hero-strip-num">04</div>
+        <div class="hero-strip-label" data-i18n="strip.4">B2B ფასები დეველოპერებს</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>
+      <span data-i18n="mq.1">უსაფრთხოება</span>
+      <span class="dot"></span>
+      <span data-i18n="mq.2">სიზუსტე</span>
+      <span class="dot"></span>
+      <span data-i18n="mq.3">სტანდარტი</span>
+      <span class="dot"></span>
+      <span data-i18n="mq.4">გამძლეობა</span>
+      <span class="dot"></span>
+      <span data-i18n="mq.1">უსაფრთხოება</span>
+      <span class="dot"></span>
+      <span data-i18n="mq.2">სიზუსტე</span>
+      <span class="dot"></span>
+      <span data-i18n="mq.3">სტანდარტი</span>
+      <span class="dot"></span>
+      <span data-i18n="mq.4">გამძლეობა</span>
+      <span class="dot"></span>
+    </span>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about" data-screen-label="02 About">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">§ 01 / <span data-i18n="sec.about">შესახებ</span></div>
+      <h2 class="section-title">
+        <span data-i18n="about.title1">18 წელი ვაწარმოებთ კარებს,</span><br/>
+        <span class="thin" data-i18n="about.title2">რომელთა ერთადერთი საქმეა — ადამიანის დაცვა.</span>
+      </h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-lead" data-i18n="about.lead">
+        <strong>GS Door</strong> — ქართული საწარმოა, რომელიც 2008 წლიდან ამზადებს
+        ბინის შესასვლელ და სახანძრო კარებს სრული საწარმოო ციკლით — ფოლადის
+        ფურცლის მიღებიდან საბოლოო მონტაჟამდე.
+      </div>
+      <div class="about-body">
+        <p data-i18n="about.p1">
+          ჩვენი საწარმოო ცენტრი მდებარეობს ფონიჭალაში, 4,200 მ² ფართობზე,
+          ოთხი წარმოების ხაზით: ფოლადის ჭრა, შედუღება, ცეცხლმედეგი შევსება
+          და ფხვნილოვანი შეღებვა.
+        </p>
+        <p data-i18n="about.p2">
+          თითოეული კარი გადის სამი ეტაპიან ხარისხის კონტროლს —
+          გეომეტრიულ გაზომვას, ცეცხლსაწინააღმდეგო ტესტირებას და
+          საკეტის მექანიზმის 10,000 ციკლიან შემოწმებას.
+        </p>
+        <p data-i18n="about.p3">
+          ვთანამშრომლობთ საქართველოს წამყვან სამშენებლო ჰოლდინგებთან —
+          ორბიტურ, არქი, m² და ქალაქის სადგომებთან.
+        </p>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">18<span class="sym">+</span></div>
+        <div class="stat-label" data-i18n="stat.1">წლიანი გამოცდილება</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">42K<span class="sym">+</span></div>
+        <div class="stat-label" data-i18n="stat.2">დამონტაჟებული კარი</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">120</div>
+        <div class="stat-label" data-i18n="stat.3">წუთი ცეცხლმედეგობა</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">10<span class="sym">/</span>10</div>
+        <div class="stat-label" data-i18n="stat.4">წლის გარანტია</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="section" id="products" data-screen-label="03 Products">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">§ 02 / <span data-i18n="sec.products">პროდუქცია</span></div>
+      <h2 class="section-title">
+        <span data-i18n="prod.title1">ოთხი ძირითადი ხაზი.</span><br/>
+        <span class="thin" data-i18n="prod.title2">ოცდაჩვიდმეტი კონფიგურაცია.</span>
+      </h2>
+    </div>
+
+    <div class="products">
+      <div class="product" data-product="entry">
+        <div class="product-idx">001/04</div>
+        <div>
+          <div class="product-title">
+            <span data-i18n="prod.1.t">ბინის შესასვლელი კარი</span>
+            <small>SERIES A — RESIDENTIAL</small>
+          </div>
+        </div>
+        <div class="product-desc" data-i18n="prod.1.d">
+          მრავალფენიანი ფოლადის კონსტრუქცია 1.5მმ ფურცლით, სამსაფეხურიანი საკეტი,
+          შუშის ბოჭკოვანი იზოლაცია. 11 დიზაინის ვარიანტი.
+        </div>
+        <div class="product-arrow">→</div>
+      </div>
+      <div class="product" data-product="fire">
+        <div class="product-idx">002/04</div>
+        <div>
+          <div class="product-title">
+            <span data-i18n="prod.2.t">სახანძრო კარი EI-60</span>
+            <small>SERIES F — 60 MIN RATED</small>
+          </div>
+        </div>
+        <div class="product-desc" data-i18n="prod.2.d">
+          სერტიფიცირებული EN 1634-1 სტანდარტით. კერამიკული ცეცხლმედეგი შევსება,
+          თერმოგაფართოებადი ლენტი, ავტომატური წყობის მექანიზმი.
+        </div>
+        <div class="product-arrow">→</div>
+      </div>
+      <div class="product" data-product="fire120">
+        <div class="product-idx">003/04</div>
+        <div>
+          <div class="product-title">
+            <span data-i18n="prod.3.t">სახანძრო კარი EI-120</span>
+            <small>SERIES F+ — 120 MIN RATED</small>
+          </div>
+        </div>
+        <div class="product-desc" data-i18n="prod.3.d">
+          ორფენიანი კერამიკული პანელი, 120 წუთიანი ცეცხლმედეგობა. განკუთვნილი
+          მაღალსართულიანი შენობების სატექნიკო ოთახებისთვის და სახანძრო კიბისათვის.
+        </div>
+        <div class="product-arrow">→</div>
+      </div>
+      <div class="product" data-product="tech">
+        <div class="product-idx">004/04</div>
+        <div>
+          <div class="product-title">
+            <span data-i18n="prod.4.t">ტექნიკური კარი</span>
+            <small>SERIES T — UTILITY</small>
+          </div>
+        </div>
+        <div class="product-desc" data-i18n="prod.4.d">
+          სარდაფებისთვის, სამეურნეო ოთახებისთვის, ლიფტის შახტებისთვის.
+          ანტიკოროზიული დამუშავება, გათბობის დამოუკიდებელი რეგულაცია.
+        </div>
+        <div class="product-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- Configurator -->
+    <div class="config">
+      <div class="config-preview">
+        <svg class="door-svg" viewBox="0 0 200 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect id="door-frame" x="10" y="10" width="180" height="340" stroke="#2a2a2e" stroke-width="4"/>
+          <rect id="door-body" x="18" y="18" width="164" height="324" fill="#1a1a1d" stroke="#2a2a2e"/>
+          <rect id="door-panel-1" x="32" y="32" width="136" height="140" stroke="#2a2a2e"/>
+          <rect id="door-panel-2" x="32" y="188" width="136" height="140" stroke="#2a2a2e"/>
+          <circle id="door-handle" cx="158" cy="180" r="5" fill="oklch(58% 0.21 25)"/>
+          <rect id="door-handle-2" x="152" y="175" width="14" height="10" fill="oklch(58% 0.21 25)"/>
+          <text x="100" y="355" text-anchor="middle" fill="#5a5a60" font-family="JetBrains Mono" font-size="7" letter-spacing="2">GS DOOR</text>
+        </svg>
+      </div>
+      <div class="config-form">
+        <div class="config-head" data-i18n="cfg.head">ინტერაქტიული კონფიგურატორი</div>
+        <div class="config-title" data-i18n="cfg.title">აარჩიე შენი კარი</div>
+
+        <div class="field">
+          <div class="field-label">
+            <span data-i18n="cfg.f1">მოდელი</span>
+            <span class="val" id="v-model">Series A</span>
+          </div>
+          <div class="opts" data-group="model">
+            <button class="opt active" data-v="Series A" data-price="1850">A</button>
+            <button class="opt" data-v="Series F · EI-60" data-price="2600">F·60</button>
+            <button class="opt" data-v="Series F · EI-120" data-price="3400">F·120</button>
+            <button class="opt" data-v="Series T" data-price="1450">T</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <span data-i18n="cfg.f2">ზომა (სმ)</span>
+            <span class="val" id="v-size">90 × 205</span>
+          </div>
+          <div class="opts" data-group="size">
+            <button class="opt" data-v="80 × 200" data-mult="0.9">80 × 200</button>
+            <button class="opt active" data-v="90 × 205" data-mult="1">90 × 205</button>
+            <button class="opt" data-v="100 × 210" data-mult="1.15">100 × 210</button>
+            <button class="opt" data-v="120 × 215" data-mult="1.4">120 × 215</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <span data-i18n="cfg.f3">შეღებვა</span>
+            <span class="val" id="v-color">გრაფიტი</span>
+          </div>
+          <div class="opts" data-group="color">
+            <button class="opt active" data-v="გრაფიტი" data-color="#2a2a2e">გრაფიტი</button>
+            <button class="opt" data-v="ანტრაციტი" data-color="#1c1c20">ანტრაციტი</button>
+            <button class="opt" data-v="მუქი მუხა" data-color="#3a2a1e">მუხა</button>
+            <button class="opt" data-v="თეთრი" data-color="#e8e6e1">თეთრი</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <span data-i18n="cfg.f4">საკეტი</span>
+            <span class="val" id="v-lock">Cisa · 3-წერტ.</span>
+          </div>
+          <div class="opts" data-group="lock">
+            <button class="opt" data-v="Mottura · 2-წერტ." data-add="0">Mottura ×2</button>
+            <button class="opt active" data-v="Cisa · 3-წერტ." data-add="180">Cisa ×3</button>
+            <button class="opt" data-v="Mul-T-Lock" data-add="420">Mul-T-Lock</button>
+          </div>
+        </div>
+
+        <div class="price-row">
+          <div class="price-label" data-i18n="cfg.price">საორიენტაციო ფასი</div>
+          <div class="price-val"><span class="cur">₾</span><span id="v-price">2030</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ CERTIFICATIONS ============ -->
+<div class="wrap">
+  <div class="certs">
+    <div class="certs-inner">
+      <div class="certs-label" data-i18n="certs.label">
+        სერტიფიცირებული<br/>
+        ევროკავშირის<br/>
+        სტანდარტებით
+      </div>
+      <div class="certs-row">
+        <div class="cert-item">
+          <div class="cert-code">EN 1634-1</div>
+          <div class="cert-name" data-i18n="cert.1">ცეცხლმედეგობა</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-code">EN 14351-1</div>
+          <div class="cert-name" data-i18n="cert.2">შესასვლელი კარები</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-code">ISO 9001</div>
+          <div class="cert-name" data-i18n="cert.3">ხარისხის მართვა</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-code">RC-3 / RC-4</div>
+          <div class="cert-name" data-i18n="cert.4">გამტაცებლობის კლასი</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-code">GE-TR-2041</div>
+          <div class="cert-name" data-i18n="cert.5">საქ. ტექ. რეგლამენტი</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CASES ============ -->
+<section class="section" id="cases" data-screen-label="04 Cases">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">§ 03 / <span data-i18n="sec.cases">ნამუშევრები</span></div>
+      <h2 class="section-title">
+        <span data-i18n="cases.title1">საცხოვრებელი კომპლექსები,</span><br/>
+        <span class="thin" data-i18n="cases.title2">რომლებსაც ჩვენი კარი იცავს.</span>
+      </h2>
+    </div>
+
+    <div class="cases">
+      <div class="case">
+        <div class="case-img">
+          <div class="case-img-label">[ PHOTO — VAKE SKYLINE TOWERS ]</div>
+        </div>
+        <div class="case-meta">
+          <span>2024</span><span class="sep">/</span><span data-i18n="case.1.type">საცხოვრებელი</span><span class="sep">/</span><span>ვაკე</span>
+        </div>
+        <div class="case-title" data-i18n="case.1.t">ვაკე სქაი ქომფლექსი</div>
+        <div class="case-client" data-i18n="case.1.c">არქი · 384 ბინა, 22 სართული · EI-60 + Series A</div>
+      </div>
+      <div class="case">
+        <div class="case-img">
+          <div class="case-img-label">[ PHOTO — DIGHOMI RESIDENCE ]</div>
+        </div>
+        <div class="case-meta">
+          <span>2023</span><span class="sep">/</span><span data-i18n="case.2.type">მიქსი</span><span class="sep">/</span><span>დიღომი</span>
+        </div>
+        <div class="case-title" data-i18n="case.2.t">დიღომი რეზიდენსი</div>
+        <div class="case-client" data-i18n="case.2.c">m² · 512 ერთეული, 3 კორპუსი · EI-120 + Series F</div>
+      </div>
+      <div class="case">
+        <div class="case-img">
+          <div class="case-img-label">[ PHOTO — BATUMI BOULEVARD ]</div>
+        </div>
+        <div class="case-meta">
+          <span>2024</span><span class="sep">/</span><span data-i18n="case.3.type">სასტუმრო</span><span class="sep">/</span><span>ბათუმი</span>
+        </div>
+        <div class="case-title" data-i18n="case.3.t">ბათუმი ბულვარი</div>
+        <div class="case-client" data-i18n="case.3.c">ორბიტური · 240 ოთახი · Series F · EI-60</div>
+      </div>
+      <div class="case">
+        <div class="case-img">
+          <div class="case-img-label">[ PHOTO — SABURTALO PLAZA ]</div>
+        </div>
+        <div class="case-meta">
+          <span>2025</span><span class="sep">/</span><span data-i18n="case.4.type">ოფისი</span><span class="sep">/</span><span>საბურთალო</span>
+        </div>
+        <div class="case-title" data-i18n="case.4.t">საბურთალო პლაზა</div>
+        <div class="case-client" data-i18n="case.4.c">ქალაქის სადგომი · 18,000 მ² · Series T + F</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="section" id="process" data-screen-label="05 Process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">§ 04 / <span data-i18n="sec.process">პროცესი</span></div>
+      <h2 class="section-title">
+        <span data-i18n="pr.title1">შეთანხმებიდან მონტაჟამდე —</span><br/>
+        <span class="thin" data-i18n="pr.title2">საშუალოდ 21 სამუშაო დღე.</span>
+      </h2>
+    </div>
+    <div class="process">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title" data-i18n="pr.1.t">გაზომვა</div>
+        <div class="step-desc" data-i18n="pr.1.d">ჩვენი ინჟინერი ადგილზე აზომავს ღიობებს და ამზადებს ტექნიკურ დავალებას. უფასოდ.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title" data-i18n="pr.2.t">კონფიგურაცია</div>
+        <div class="step-desc" data-i18n="pr.2.d">არჩევთ მოდელს, ფერს, საკეტს და დამატებით ფურნიტურას. ვალიდაცია 48 საათში.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title" data-i18n="pr.3.t">წარმოება</div>
+        <div class="step-desc" data-i18n="pr.3.d">14 დღე — ფოლადის ჭრა, შედუღება, ცეცხლმედეგი შევსება, ფხვნილოვანი შეღებვა.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title" data-i18n="pr.4.t">მონტაჟი</div>
+        <div class="step-desc" data-i18n="pr.4.d">ჩვენი ბრიგადა ამონტაჟებს 24 საათში. ხარისხის ინსპექცია და 10-წლიანი გარანტია.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section" id="contact" data-screen-label="06 Contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">§ 05 / <span data-i18n="sec.contact">კონტაქტი</span></div>
+      <h2 class="section-title">
+        <span data-i18n="ct.title1">ვიწყებთ</span>
+        <span class="thin" data-i18n="ct.title2">უფასო გაზომვით.</span>
+      </h2>
+    </div>
+
+    <div class="contact">
+      <div>
+        <div class="contact-h">
+          <span data-i18n="ct.h1">დაგიკავშირდებით</span>
+          <span class="red" data-i18n="ct.h2">2 საათში.</span>
+        </div>
+        <div class="contact-sub" data-i18n="ct.sub">
+          დატოვე განაცხადი — ინჟინერი დარეკავს სამუშაო საათებში და შეთანხმდებით
+          გაზომვის დროზე. დეველოპერებისთვის — ცალკე B2B მენეჯერი.
+        </div>
+        <div class="contact-info">
+          <div class="ci-item">
+            <div class="ci-k" data-i18n="ct.k1">საწარმო</div>
+            <div class="ci-v" data-i18n="ct.v1">თბილისი, ფონიჭალის ქ. 17</div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-k" data-i18n="ct.k2">სალონი</div>
+            <div class="ci-v" data-i18n="ct.v2">ჭავჭავაძის გამზ. 74 · 10:00 — 19:00</div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-k" data-i18n="ct.k3">ტელეფონი</div>
+            <div class="ci-v">+995 322 94 17 08</div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-k">Email</div>
+            <div class="ci-v">hello@armuri.ge</div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-k" data-i18n="ct.k5">B2B</div>
+            <div class="ci-v">developers@armuri.ge · +995 577 40 17 08</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="form-box" onsubmit="event.preventDefault(); this.innerHTML='<div style=\'padding:60px 0;text-align:center;font-family:var(--font-mono);color:var(--muted)\'>მიღებულია ✓<br><br>დაგიკავშირდებით მალე.</div>'">
+        <div class="form-field">
+          <label data-i18n="form.1">სახელი</label>
+          <input type="text" placeholder="გიორგი მჭედლიშვილი" required />
+        </div>
+        <div class="form-field">
+          <label data-i18n="form.2">ტელეფონი</label>
+          <input type="tel" placeholder="+995 5XX XX XX XX" required />
+        </div>
+        <div class="form-field">
+          <label data-i18n="form.3">მოდელი</label>
+          <select>
+            <option data-i18n="form.opt1">შესასვლელი კარი (Series A)</option>
+            <option data-i18n="form.opt2">სახანძრო კარი EI-60</option>
+            <option data-i18n="form.opt3">სახანძრო კარი EI-120</option>
+            <option data-i18n="form.opt4">ტექნიკური კარი</option>
+            <option data-i18n="form.opt5">დეველოპერული B2B შეთავაზება</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label data-i18n="form.4">დამატებითი დეტალები</label>
+          <textarea placeholder="ღიობების რაოდენობა, ობიექტის მისამართი, ვადები..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" data-i18n="form.sub">გაგზავნა →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" data-screen-label="Footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom: 20px;">
+          <img src="assets/gs-door-horizontal.png" alt="GS Door" style="height: 36px;" />
+        </div>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 280px;" data-i18n="ft.blurb">
+          ქართული მეტალის საწარმო 2008 წლიდან.
+          ცეცხლმედეგი და შესასვლელი კარების წარმოება
+          ევროკავშირის სტანდარტებით.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="ft.h1">პროდუქცია</h4>
+        <a href="#products" data-i18n="ft.p1">შესასვლელი კარი</a>
+        <a href="#products" data-i18n="ft.p2">სახანძრო EI-60</a>
+        <a href="#products" data-i18n="ft.p3">სახანძრო EI-120</a>
+        <a href="#products" data-i18n="ft.p4">ტექნიკური</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="ft.h2">კომპანია</h4>
+        <a href="#about" data-i18n="ft.c1">შესახებ</a>
+        <a href="#cases" data-i18n="ft.c2">ნამუშევრები</a>
+        <a href="#process" data-i18n="ft.c3">პროცესი</a>
+        <a href="#" data-i18n="ft.c4">ვაკანსიები</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="ft.h3">კონტაქტი</h4>
+        <a href="tel:+9953229417">+995 322 94 17 08</a>
+        <a href="mailto:hello@armuri.ge">hello@armuri.ge</a>
+        <a href="#" data-i18n="ft.c5">Facebook</a>
+        <a href="#" data-i18n="ft.c6">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <div>© 2008—2026 GS DOOR LLC · <span data-i18n="ft.rights">ყველა უფლება დაცულია</span></div>
+      <div>IDNO 204 17 08 932</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ TWEAKS ============ -->
+<div class="tweaks" id="tweaks">
+  <div class="tweaks-head">
+    <span>TWEAKS</span>
+    <span style="color: var(--red)">●</span>
+  </div>
+  <div class="tweak-group">
+    <label>Variant</label>
+    <div class="tweak-opts" data-tweak="variant">
+      <button data-v="industrial" class="active">INDUSTRIAL</button>
+      <button data-v="editorial">EDITORIAL</button>
+      <button data-v="brutal">BRUTAL</button>
+    </div>
+  </div>
+  <div class="tweak-group">
+    <label>Accent</label>
+    <div class="swatch-row" data-tweak="accent">
+      <div class="swatch active" data-v="25" style="background: oklch(58% 0.21 25)"></div>
+      <div class="swatch" data-v="55" style="background: oklch(58% 0.21 55)"></div>
+      <div class="swatch" data-v="140" style="background: oklch(58% 0.18 140)"></div>
+      <div class="swatch" data-v="240" style="background: oklch(58% 0.18 240)"></div>
+      <div class="swatch" data-v="320" style="background: oklch(58% 0.20 320)"></div>
+    </div>
+  </div>
+  <div class="tweak-group">
+    <label>Language</label>
+    <div class="tweak-opts" data-tweak="lang">
+      <button data-v="ka" class="active">ქართული</button>
+      <button data-v="en">ENGLISH</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// === TWEAKS DEFAULTS ===
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "variant": "industrial",
+  "accent": 25,
+  "lang": "ka"
+}/*EDITMODE-END*/;
+
+// === i18n ===
+const I18N = {
+  ka: {}, // defaults (already in HTML)
+  en: {
+    'nav.about': 'About', 'nav.products': 'Products', 'nav.cases': 'Projects',
+    'nav.process': 'Process', 'nav.contact': 'Contact', 'nav.cta': 'Get a Quote',
+    'hero.eyebrow': 'Entry & fire-rated doors · Since 2008',
+    'hero.h1a': 'Doors that', 'hero.h1b': 'protect.',
+    'hero.h1c': 'Steel', 'hero.h1d': 'you can trust.',
+    'hero.sub': 'We manufacture entry and fire-rated doors in Georgia — certified to EN 1634-1, with 60 and 120-minute fire resistance. Stock units ship in 10 days; custom orders in 21.',
+    'hero.cta1': 'View Products →', 'hero.cta2': 'Free Measurement',
+    'spec.fire': 'Fire Rating', 'spec.thick': 'Steel Thickness', 'spec.locks': 'Lock Points', 'spec.warranty': 'Warranty',
+    'strip.1': 'Made in Georgia', 'strip.2': 'EN & ISO Certified', 'strip.3': '24h Installation', 'strip.4': 'B2B Developer Pricing',
+    'mq.1': 'SAFETY', 'mq.2': 'PRECISION', 'mq.3': 'STANDARD', 'mq.4': 'DURABILITY',
+    'sec.about': 'ABOUT',
+    'about.title1': '18 years of making doors', 'about.title2': 'whose only job is to protect people.',
+    'about.lead': 'GS Door is a Georgian manufacturer making entry and fire-rated doors since 2008 — a full production cycle from steel sheet intake to final installation.',
+    'about.p1': 'Our production facility in Ponichala occupies 4,200 m² with four lines: steel cutting, welding, fire-resistant filling, and powder coating.',
+    'about.p2': 'Every door passes a three-stage quality control — geometric measurement, fire testing, and 10,000-cycle lock mechanism inspection.',
+    'about.p3': 'We partner with Georgia\'s leading construction holdings — Orbi, Arqi, m² and City Parking.',
+    'stat.1': 'Years of expertise', 'stat.2': 'Doors installed', 'stat.3': 'Min. fire rating', 'stat.4': 'Year warranty',
+    'sec.products': 'PRODUCTS',
+    'prod.title1': 'Four main product lines.', 'prod.title2': 'Thirty-seven configurations.',
+    'prod.1.t': 'Entry Door', 'prod.1.d': 'Multi-layer steel construction with 1.5mm sheet, three-point lock, glass-fiber insulation. 11 design variants.',
+    'prod.2.t': 'Fire Door EI-60', 'prod.2.d': 'Certified to EN 1634-1. Ceramic fire-resistant filling, thermally expanding seal, self-closing mechanism.',
+    'prod.3.t': 'Fire Door EI-120', 'prod.3.d': 'Twin ceramic panels, 120-minute fire resistance. For high-rise utility rooms and fire escapes.',
+    'prod.4.t': 'Utility Door', 'prod.4.d': 'For basements, storage rooms, elevator shafts. Anti-corrosion treatment, independent heating regulation.',
+    'cfg.head': 'Interactive configurator', 'cfg.title': 'Choose your door',
+    'cfg.f1': 'Model', 'cfg.f2': 'Size (cm)', 'cfg.f3': 'Finish', 'cfg.f4': 'Lock', 'cfg.price': 'Est. Price',
+    'certs.label': 'CERTIFIED TO\nEUROPEAN\nSTANDARDS',
+    'cert.1': 'Fire resistance', 'cert.2': 'Entry doors', 'cert.3': 'Quality management', 'cert.4': 'Burglary class', 'cert.5': 'GE Technical Reg.',
+    'sec.cases': 'PROJECTS',
+    'cases.title1': 'Residential developments,', 'cases.title2': 'protected by our doors.',
+    'case.1.type': 'Residential', 'case.2.type': 'Mixed-use', 'case.3.type': 'Hospitality', 'case.4.type': 'Office',
+    'case.1.t': 'Vake Sky Complex', 'case.1.c': 'Arqi · 384 units, 22 floors · EI-60 + Series A',
+    'case.2.t': 'Dighomi Residence', 'case.2.c': 'm² · 512 units, 3 blocks · EI-120 + Series F',
+    'case.3.t': 'Batumi Boulevard', 'case.3.c': 'Orbi · 240 rooms · Series F · EI-60',
+    'case.4.t': 'Saburtalo Plaza', 'case.4.c': 'City Parking · 18,000 m² · Series T + F',
+    'sec.process': 'PROCESS',
+    'pr.title1': 'From agreement to installation —', 'pr.title2': '21 working days on average.',
+    'pr.1.t': 'Measurement', 'pr.1.d': 'Our engineer measures openings on-site and prepares technical specs. Free of charge.',
+    'pr.2.t': 'Configuration', 'pr.2.d': 'You choose the model, color, lock, and accessories. Validated within 48 hours.',
+    'pr.3.t': 'Production', 'pr.3.d': '14 days — steel cutting, welding, fire-resistant filling, powder coating.',
+    'pr.4.t': 'Installation', 'pr.4.d': 'Our crew installs within 24 hours. Quality inspection and 10-year warranty included.',
+    'sec.contact': 'CONTACT',
+    'ct.title1': 'Starts with', 'ct.title2': 'a free measurement.',
+    'ct.h1': 'We\'ll call you', 'ct.h2': 'within 2 hours.',
+    'ct.sub': 'Leave a request — our engineer will call during working hours to schedule a measurement. Developers get a dedicated B2B manager.',
+    'ct.k1': 'Factory', 'ct.v1': 'Tbilisi, Ponichala St. 17',
+    'ct.k2': 'Showroom', 'ct.v2': 'Chavchavadze Ave. 74 · 10:00 — 19:00',
+    'ct.k3': 'Phone', 'ct.k5': 'B2B',
+    'form.1': 'Name', 'form.2': 'Phone', 'form.3': 'Model',
+    'form.opt1': 'Entry Door (Series A)', 'form.opt2': 'Fire Door EI-60', 'form.opt3': 'Fire Door EI-120',
+    'form.opt4': 'Utility Door', 'form.opt5': 'Developer B2B Inquiry',
+    'form.4': 'Additional details', 'form.sub': 'Submit →',
+    'ft.blurb': 'Georgian steel manufacturer since 2008. Fire-rated and entry door production to European standards.',
+    'ft.h1': 'Products', 'ft.p1': 'Entry Door', 'ft.p2': 'Fire EI-60', 'ft.p3': 'Fire EI-120', 'ft.p4': 'Utility',
+    'ft.h2': 'Company', 'ft.c1': 'About', 'ft.c2': 'Projects', 'ft.c3': 'Process', 'ft.c4': 'Careers',
+    'ft.h3': 'Contact', 'ft.c5': 'Facebook', 'ft.c6': 'Instagram',
+    'ft.rights': 'All rights reserved',
+  }
+};
+const KA_CACHE = {};
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  KA_CACHE[el.getAttribute('data-i18n')] = el.innerHTML;
+});
+
+function setLang(lang) {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    const v = (lang === 'ka') ? KA_CACHE[k] : (I18N.en[k] || KA_CACHE[k]);
+    if (v) el.innerHTML = v;
+  });
+  document.documentElement.lang = lang;
+  // Update both switches
+  document.querySelectorAll('.lang-switch button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.querySelectorAll('[data-tweak="lang"] button').forEach(b => b.classList.toggle('active', b.dataset.v === lang));
+}
+document.querySelectorAll('.lang-switch button').forEach(b => {
+  b.addEventListener('click', () => setLang(b.dataset.lang));
+});
+
+// === CONFIGURATOR ===
+const cfg = { model: 'Series A', price: 1850, size: '90 × 205', mult: 1, color: 'გრაფიტი', colorHex: '#2a2a2e', lock: 'Cisa · 3-წერტ.', add: 180 };
+function recalc() {
+  const total = Math.round(cfg.price * cfg.mult + cfg.add);
+  document.getElementById('v-price').textContent = total.toLocaleString();
+  document.getElementById('v-model').textContent = cfg.model;
+  document.getElementById('v-size').textContent = cfg.size;
+  document.getElementById('v-color').textContent = cfg.color;
+  document.getElementById('v-lock').textContent = cfg.lock;
+  const body = document.getElementById('door-body');
+  if (body) body.setAttribute('fill', cfg.colorHex);
+  const p1 = document.getElementById('door-panel-1'), p2 = document.getElementById('door-panel-2');
+  if (p1) p1.setAttribute('stroke', shade(cfg.colorHex, -15));
+  if (p2) p2.setAttribute('stroke', shade(cfg.colorHex, -15));
+}
+function shade(hex, pct) {
+  const n = parseInt(hex.slice(1), 16);
+  let r = (n>>16)&255, g = (n>>8)&255, b = n&255;
+  r = Math.max(0, Math.min(255, r + pct*2));
+  g = Math.max(0, Math.min(255, g + pct*2));
+  b = Math.max(0, Math.min(255, b + pct*2));
+  return '#' + ((r<<16)|(g<<8)|b).toString(16).padStart(6,'0');
+}
+document.querySelectorAll('.opts').forEach(group => {
+  group.addEventListener('click', (e) => {
+    const btn = e.target.closest('.opt');
+    if (!btn) return;
+    group.querySelectorAll('.opt').forEach(o => o.classList.remove('active'));
+    btn.classList.add('active');
+    const g = group.dataset.group;
+    if (g === 'model') { cfg.model = btn.dataset.v; cfg.price = +btn.dataset.price; }
+    if (g === 'size') { cfg.size = btn.dataset.v; cfg.mult = +btn.dataset.mult; }
+    if (g === 'color') { cfg.color = btn.dataset.v; cfg.colorHex = btn.dataset.color; }
+    if (g === 'lock') { cfg.lock = btn.dataset.v; cfg.add = +btn.dataset.add; }
+    recalc();
+  });
+});
+recalc();
+
+// === TWEAKS ===
+const tweaks = document.getElementById('tweaks');
+let edits = { ...TWEAK_DEFAULTS };
+
+function applyTweaks(e) {
+  document.body.dataset.variant = e.variant || 'industrial';
+  const h = e.accent != null ? e.accent : 25;
+  document.documentElement.style.setProperty('--red', `oklch(58% 0.21 ${h})`);
+  document.documentElement.style.setProperty('--red-soft', `oklch(52% 0.18 ${h})`);
+  document.documentElement.style.setProperty('--red-deep', `oklch(38% 0.16 ${h})`);
+  document.documentElement.style.setProperty('--red-glow', `oklch(68% 0.22 ${h} / 0.35)`);
+  setLang(e.lang || 'ka');
+  // Update tweak UI
+  document.querySelectorAll('[data-tweak]').forEach(g => {
+    const key = g.dataset.tweak;
+    g.querySelectorAll('button,.swatch').forEach(b => {
+      b.classList.toggle('active', String(b.dataset.v) === String(e[key]));
+    });
+  });
+}
+
+document.querySelectorAll('[data-tweak]').forEach(g => {
+  g.addEventListener('click', (ev) => {
+    const btn = ev.target.closest('button,.swatch');
+    if (!btn) return;
+    const key = g.dataset.tweak;
+    let val = btn.dataset.v;
+    if (key === 'accent') val = +val;
+    edits[key] = val;
+    applyTweaks(edits);
+    try {
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+    } catch (e) {}
+  });
+});
+
+window.addEventListener('message', (e) => {
+  if (!e.data || !e.data.type) return;
+  if (e.data.type === '__activate_edit_mode') tweaks.classList.add('active');
+  if (e.data.type === '__deactivate_edit_mode') tweaks.classList.remove('active');
+});
+try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch(e) {}
+
+// Apply initial tweak values
+applyTweaks(edits);
+
+// === REVEAL ===
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.section, .hero, .certs, .marquee').forEach(el => {
+  el.classList.add('reveal'); io.observe(el);
+});
+</script>
+</body>
+</html>
