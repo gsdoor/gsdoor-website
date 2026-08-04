@@ -89,7 +89,7 @@
     overflow: hidden;
   }
   .hero-grid {
-    display: grid; grid-template-columns: 1.25fr 1fr; gap: 60px; align-items: end;
+    display: grid; grid-template-columns: 0.62fr 1.38fr; gap: 20px; align-items: center;
   }
   @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
   .eyebrow {
@@ -492,6 +492,21 @@
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
   .reveal.in { opacity: 1; transform: none; }
 
+  /* === Door construction interactive (enlarged) === */
+  .gsd-door { position: relative; width: 100%; cursor: pointer; user-select: none; aspect-ratio: 1420/640; }
+  .gsd-door svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .gsd-limg { filter: drop-shadow(9px 12px 18px rgba(0,0,0,.5)); will-change: transform, opacity; }
+  .gsd-photo { filter: drop-shadow(20px 24px 38px rgba(0,0,0,.6)); will-change: transform; }
+  .gsd-layer { opacity: 0; }
+  .gsd-lbl { opacity: 0; transition: opacity .4s ease 0s; }
+  .gsd-door.open .gsd-lbl { opacity: 1; transition: opacity .8s ease 3.2s; }
+  .gsd-num { fill: var(--red); }
+  .gsd-numtxt { font-family: var(--font-sans); font-weight: 700; font-size: 17px; fill: #fff; }
+  .gsd-ltitle { font-family: var(--font-sans); font-weight: 700; font-size: 22px; fill: var(--text); }
+  .gsd-lsub { font-family: var(--font-sans); font-weight: 400; font-size: 16px; fill: var(--muted); }
+  .gsd-lead { stroke: #000; stroke-width: 1.8; }
+  .gsd-dot { fill: #000; }
+  @media (prefers-reduced-motion: reduce) { .gsd-door * { transition: none !important; } }
 </style>
 </head>
 <body data-variant="industrial">
@@ -545,23 +560,29 @@
         </div>
       </div>
 
-      <div class="hero-specs">
-        <div class="spec">
-          <div class="spec-k" data-i18n="spec.fire">01</div>
-          <div class="spec-v">ნედლეულის შემოწმება<span class="unit"></span></div>
-        </div>
-        <div class="spec">
-          <div class="spec-k" data-i18n="spec.thick">02</div>
-          <div class="spec-v">წარმოების ეტაპის კონტროლი<span class="unit"></span></div>
-        </div>
-        <div class="spec">
-          <div class="spec-k" data-i18n="spec.locks">03</div>
-          <div class="spec-v">საბოლოო ტესტირება<span class="unit"></span></div>
-        </div>
-        <div class="spec">
-          <div class="spec-k" data-i18n="spec.warranty">04</div>
-          <div class="spec-v">შეფუთვა და მიწოდება<span class="unit"></span></div>
-        </div>
+<div class="gsd-door" id="gsdDoor">
+        <svg viewBox="0 0 1420 640" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <g class="gsd-layer" data-dx="384" data-dy="-55"><image class="gsd-limg" href="images/door/layer-inner-panel.webp" x="280" y="40" height="590" preserveAspectRatio="xMidYMid meet"/></g>
+      <g class="gsd-layer" data-dx="306" data-dy="-44"><image class="gsd-limg" href="images/door/layer-inner-steel.webp" x="280" y="40" height="590" preserveAspectRatio="xMidYMid meet"/></g>
+      <g class="gsd-layer" data-dx="228" data-dy="-33"><image class="gsd-limg" href="images/door/layer-frame.webp" x="280" y="40" height="590" preserveAspectRatio="xMidYMid meet"/></g>
+      <g class="gsd-layer" data-dx="150" data-dy="-22"><image class="gsd-limg" href="images/door/layer-wool.webp" x="280" y="40" height="590" preserveAspectRatio="xMidYMid meet"/></g>
+      <g class="gsd-layer" data-dx="72" data-dy="-11"><image class="gsd-limg" href="images/door/layer-outer-steel.webp" x="280" y="40" height="590" preserveAspectRatio="xMidYMid meet"/></g>
+          <image class="gsd-photo" href="images/door/door.webp" x="280" y="-30" height="723" preserveAspectRatio="xMidYMid meet"/>
+          <g class="gsd-labels">
+      <g class="gsd-lbl"><circle cx="267" cy="300" r="18" fill="rgba(0,0,0,0.35)"/><circle class="gsd-num" cx="267" cy="300" r="15"/><text class="gsd-numtxt" x="267" y="305" text-anchor="middle">1</text></g>
+      <g class="gsd-lbl"><circle cx="467" cy="300" r="18" fill="rgba(0,0,0,0.35)"/><circle class="gsd-num" cx="467" cy="300" r="15"/><text class="gsd-numtxt" x="467" y="305" text-anchor="middle">2</text></g>
+      <g class="gsd-lbl"><circle cx="630" cy="300" r="18" fill="rgba(0,0,0,0.35)"/><circle class="gsd-num" cx="630" cy="300" r="15"/><text class="gsd-numtxt" x="630" y="305" text-anchor="middle">3</text></g>
+      <g class="gsd-lbl"><circle cx="708" cy="300" r="18" fill="rgba(0,0,0,0.35)"/><circle class="gsd-num" cx="708" cy="300" r="15"/><text class="gsd-numtxt" x="708" y="305" text-anchor="middle">4</text></g>
+      <g class="gsd-lbl"><circle cx="785" cy="300" r="18" fill="rgba(0,0,0,0.35)"/><circle class="gsd-num" cx="785" cy="300" r="15"/><text class="gsd-numtxt" x="785" y="305" text-anchor="middle">5</text></g>
+      <g class="gsd-lbl"><circle cx="863" cy="300" r="18" fill="rgba(0,0,0,0.35)"/><circle class="gsd-num" cx="863" cy="300" r="15"/><text class="gsd-numtxt" x="863" y="305" text-anchor="middle">6</text></g>
+            <g class="gsd-lbl"><circle class="gsd-num" cx="1120" cy="115" r="17"/><text class="gsd-numtxt" x="1120" y="120" text-anchor="middle">1</text><text class="gsd-ltitle" x="1146" y="112">გარე დეკორატიული პანელი</text><text class="gsd-lsub" x="1146" y="131">MDF · CNC გეომეტრიული ფრეზი</text></g>
+      <g class="gsd-lbl"><circle class="gsd-num" cx="1120" cy="205" r="17"/><text class="gsd-numtxt" x="1120" y="210" text-anchor="middle">2</text><text class="gsd-ltitle" x="1146" y="202">ფოლადის ფურცელი</text><text class="gsd-lsub" x="1146" y="221">გარე · გამაგრებული</text></g>
+      <g class="gsd-lbl"><circle class="gsd-num" cx="1120" cy="295" r="17"/><text class="gsd-numtxt" x="1120" y="300" text-anchor="middle">3</text><text class="gsd-ltitle" x="1146" y="292">ქვაბამბა · ცეცხლმედეგი ბირთვი</text><text class="gsd-lsub" x="1146" y="311">EI-30 · ხმის იზოლაცია</text></g>
+      <g class="gsd-lbl"><circle class="gsd-num" cx="1120" cy="385" r="17"/><text class="gsd-numtxt" x="1120" y="390" text-anchor="middle">4</text><text class="gsd-ltitle" x="1146" y="382">კარკასის ტიხრები</text><text class="gsd-lsub" x="1146" y="401">ფოლადის გამაგრებელი ნეკნები</text></g>
+      <g class="gsd-lbl"><circle class="gsd-num" cx="1120" cy="475" r="17"/><text class="gsd-numtxt" x="1120" y="480" text-anchor="middle">5</text><text class="gsd-ltitle" x="1146" y="472">ფოლადის ფურცელი</text><text class="gsd-lsub" x="1146" y="491">შიდა</text></g>
+      <g class="gsd-lbl"><circle class="gsd-num" cx="1120" cy="565" r="17"/><text class="gsd-numtxt" x="1120" y="570" text-anchor="middle">6</text><text class="gsd-ltitle" x="1146" y="562">შიდა დეკორატიული პანელი</text><text class="gsd-lsub" x="1146" y="581">MDF</text></g>
+          </g>
+        </svg>
       </div>
     </div>
 
@@ -1233,6 +1254,35 @@ const io = new IntersectionObserver((entries) => {
 document.querySelectorAll('.section, .hero, .certs, .marquee').forEach(el => {
   el.classList.add('reveal'); io.observe(el);
 });
+</script>
+<script>
+(function(){
+  var d = document.getElementById('gsdDoor'); if(!d) return;
+  var layers = [].slice.call(d.querySelectorAll('.gsd-layer'));
+  var photo = d.querySelector('.gsd-photo');
+  var N = layers.length, GAP = 0.22, MOVE = 2.1, DX = 228;
+  var LEAD = 1.0; // door moves first; layers start unfolding after this delay
+  function setOpen(on){
+    layers.forEach(function(l,i){
+      // OPEN: wait LEAD (door slides out) then staggered unfold.
+      // CLOSE: layers collapse first (staggered), door returns last.
+      var delay = on ? (LEAD + (N-1-i)*GAP) : (i*GAP);
+      l.style.transition = 'transform '+MOVE+'s cubic-bezier(.22,.61,.36,1) '+delay+'s, opacity .5s ease '+delay+'s';
+      var dx = on ? parseFloat(l.dataset.dx) : 0, dy = on ? parseFloat(l.dataset.dy) : 0;
+      l.style.transform = 'translate('+dx+'px,'+dy+'px)';
+      l.style.opacity = on ? '1' : '0';
+    });
+    // OPEN: door moves immediately (0s). CLOSE: door waits for layers to collapse first.
+    var pDelay = on ? 0 : (LEAD + N*GAP);
+    photo.style.transition = 'transform '+MOVE+'s cubic-bezier(.22,.61,.36,1) '+pDelay+'s';
+    photo.style.transform = on ? 'translate(-'+DX+'px,10px)' : 'translate(0,0)';
+    d.classList.toggle('open', on);
+  }
+  layers.forEach(function(l){ l.style.opacity='0'; });
+  d.addEventListener('mouseenter', function(){ setOpen(true); });
+  d.addEventListener('mouseleave', function(){ setOpen(false); });
+  d.addEventListener('click', function(){ setOpen(!d.classList.contains('open')); });
+})();
 </script>
 </body>
 </html>
